@@ -8,6 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            text-align: center;
         }
         .roadmap {
             max-width: 600px;
@@ -23,15 +24,45 @@
         .task {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             margin: 10px 0;
         }
         .task input {
             margin-right: 10px;
         }
+        .progress-container {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 20px;
+            background-color: #0072c6;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+            border-radius: 10px;
+        }
+        .logo {
+            width: 100px;
+            margin-bottom: 20px;
+        }
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             let checkboxes = document.querySelectorAll(".task input");
+            let progressBar = document.getElementById("progress-bar");
+            let totalTasks = checkboxes.length;
+
+            function updateProgress() {
+                let completedTasks = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+                let progress = (completedTasks / totalTasks) * 100;
+                progressBar.style.width = progress + "%";
+                progressBar.textContent = Math.round(progress) + "%";
+            }
+
             checkboxes.forEach((checkbox, index) => {
                 let savedState = localStorage.getItem("task_" + index);
                 if (savedState === "true") {
@@ -39,14 +70,21 @@
                 }
                 checkbox.addEventListener("change", function() {
                     localStorage.setItem("task_" + index, checkbox.checked);
+                    updateProgress();
                 });
             });
+
+            updateProgress();
         });
     </script>
 </head>
 <body>
+    <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM Logo">
     <div class="roadmap">
         <h2>IBM Quantum Ambassador Roadmap</h2>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar">0%</div>
+        </div>
         <div class="task"><input type="checkbox"> Must be an employee of IBM</div>
         <div class="task"><input type="checkbox"> Earned the IBM Quantum Conversations badge</div>
         <div class="task"><input type="checkbox"> Have a Master’s/PhD in Math, Physics, or related area</div>
@@ -55,9 +93,6 @@
         <div class="task"><input type="checkbox"> Demonstrated presentation capabilities on C-Level</div>
         <div class="task"><input type="checkbox"> Demonstrate ability to answer in-depth questions on quantum computing, IBM’s quantum strategy, and technology</div>
         <div class="task"><input type="checkbox"> Demonstrate ability to present and demo IBM Quantum Lab</div>
-        <h3>Annual Recertification</h3>
-        <div class="task"><input type="checkbox"> Presented at least 10 times a year</div>
-        <div class="task"><input type="checkbox"> At least 2 presentations per quarter</div>
     </div>
 </body>
 </html>
