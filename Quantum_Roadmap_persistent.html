@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Ambassador Roadmap</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .roadmap {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            text-align: center;
+        }
+        .task {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .task input {
+            margin-right: 10px;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let checkboxes = document.querySelectorAll(".task input");
+            checkboxes.forEach((checkbox, index) => {
+                let savedState = localStorage.getItem("task_" + index);
+                if (savedState === "true") {
+                    checkbox.checked = true;
+                }
+                checkbox.addEventListener("change", function() {
+                    localStorage.setItem("task_" + index, checkbox.checked);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="roadmap">
+        <h2>IBM Quantum Ambassador Roadmap</h2>
+        <div class="task"><input type="checkbox"> Must be an employee of IBM</div>
+        <div class="task"><input type="checkbox"> Earned the IBM Quantum Conversations badge</div>
+        <div class="task"><input type="checkbox"> Have a Master’s/PhD in Math, Physics, or related area</div>
+        <div class="task"><input type="checkbox"> Successful interview with a regional lead</div>
+        <div class="task"><input type="checkbox"> Successfully complete the IBM Quantum Ambassador training and final review</div>
+        <div class="task"><input type="checkbox"> Demonstrated presentation capabilities on C-Level</div>
+        <div class="task"><input type="checkbox"> Demonstrate ability to answer in-depth questions on quantum computing, IBM’s quantum strategy, and technology</div>
+        <div class="task"><input type="checkbox"> Demonstrate ability to present and demo IBM Quantum Lab</div>
+        <h3>Annual Recertification</h3>
+        <div class="task"><input type="checkbox"> Presented at least 10 times a year</div>
+        <div class="task"><input type="checkbox"> At least 2 presentations per quarter</div>
+    </div>
+</body>
+</html>
